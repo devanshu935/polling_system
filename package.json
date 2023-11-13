@@ -1,0 +1,18 @@
+{
+  "name": "polling-api-system",
+  "version": "1.0.0",
+  "description": "The question",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Question"
+  ],
+  "author": "Devanshu",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^6.0.0"
+  }
+}
