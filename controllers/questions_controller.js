@@ -42,13 +42,19 @@ module.exports.createOption = async function(req, res){
     try {
         const question = await Question.findById(req.params.id);
         if(question){
-            const option = await Option.create(req.body);
+            const option = await Option.create({
+                text: req.body.text,
+                question: req.params.id
+            });
             const updateOption = await Option.findByIdAndUpdate(option._id, {"link_to_vote" : `http://localhost:8000/options/${option._id}/add_vote`});
             question.options.push(updateOption);
             question.save();
             return res.send(question);
         }
     } catch (err) {
-        console.log(err);
+        if(err.code === 11000){
+            return res.send('The option already exists for the specified question');
+        }
+        console.log(err.code);
     }
 }
