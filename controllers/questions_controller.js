@@ -20,6 +20,7 @@ module.exports.delete = async function (req, res) {
         let question = await Question.findById(req.params.id);
         if (question) {
             await Question.deleteOne({ _id: req.params.id });
+            await Option.deleteMany({question: req.params.id});
             return res.status(200).json('Question deleted successfully');
         }
     } catch (err) {
@@ -46,7 +47,7 @@ module.exports.createOption = async function(req, res){
                 text: req.body.text,
                 question: req.params.id
             });
-            const updateOption = await Option.findByIdAndUpdate(option._id, {"link_to_vote" : `http://localhost:8000/options/${option._id}/add_vote`});
+            const updateOption = await Option.findByIdAndUpdate(option._id, {"link_to_vote" : `http://localhost:8000/options/${option._id}/add_vote`}, {new: true});
             question.options.push(updateOption);
             question.save();
             return res.send(question);

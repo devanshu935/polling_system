@@ -19,7 +19,7 @@ module.exports.delete = async function (req, res) {
 module.exports.addVote = async function (req, res) {
     try {
         // this the increment query in which the vote is incremented by one 
-        const opt = await Option.findByIdAndUpdate(req.params.id, { $inc: { votes: 1 } });
+        const opt = await Option.findByIdAndUpdate(req.params.id, { $inc: { votes: 1 } }, {new: true});
         if (opt) {
             await opt.save();
             res.send(opt);
